@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.2/socket.io.min.js" integrity="sha512-xzC4RSo+4m1clLhr0pQr6yFjO9bJ0py6+l65SBibI8/pSEU8U4iVZ7xm95WRq8PXw2MKv8SSR3QkqR2jciG5Ug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js" integrity="sha512-N4kV7GkNv7QR7RX9YF/olywyIgIwNvfEe2nZtfyj73HdjCUkAfOBDbcuJ/cTaN04JKRnw1YG1wnUyNKMsNgg3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./libraries/p5.sound.js"></script>
+    <title>MLDI Songuesser</title>
+</head>
+<body>    
+
+<main>
+<audio id="audio" src="./assets/24-piano-keys/1A.mp3"></audio>
+
+    <!-- Lobby -->
+    <div class='page' id="lobby">
+
+    </div>
+
+    <!-- Namepage -->
+    <div class='page' id="namepage">
+        <button id="navnSenderKnap">OK</button>
+    <!-- Her skal der være namebox og send knap -->
+    </div>
+
+    <!-- disconnectpage -->
+    <div class='page'  id="disconnect">
+    <!-- Bare lidt tekst der siger at du ikke er kommet ind -->
+        <div class="info">Sorry this lobby is full, you'll have to try again later</div>
+    </div>
+
+    <!-- playpage til klienten der skal spille klaver -->
+    <div class='page'  id="playPage">
+        <div class="info">Play song for other players to guess</div>
+        <div class="piano">
+            <div class="key whitekey" id="1F"></div>
+            <div class="key blackkey" id="1Fsharp"></div>
+            <div class="key whitekey" id="1G"></div>
+            <div class="key blackkey" id="1Gsharp"></div>
+            <div class="key whitekey" id="1A"></div>
+            <div class="key blackkey" id="1Asharp"></div>
+            <div class="key whitekey" id="1H"></div>
+            <div class="key whitekey" id="1C"></div>
+            <div class="key blackkey" id="1Csharp"></div>
+            <div class="key whitekey" id="1D"></div>
+            <div class="key blackkey" id="1Dsharp"></div>
+            <div class="key whitekey" id="1E"></div>
+            <div class="key whitekey" id="2F"></div>
+            <div class="key blackkey" id="2Fsharp"></div>
+            <div class="key whitekey" id="2G"></div>
+            <div class="key blackkey" id="2Gsharp"></div>
+            <div class="key whitekey" id="2A"></div>
+            <div class="key blackkey" id="2Asharp"></div>
+            <div class="key whitekey" id="2H"></div>
+            <div class="key whitekey" id="2C"></div>
+            <div class="key blackkey" id="2Csharp"></div>
+            <div class="key whitekey" id="2D"></div>
+            <div class="key blackkey" id="2Dsharp"></div>
+            <div class="key whitekey" id="2E"></div>
+        </div>
+    </div>
+</main>
+
+<!-- Listenppage -->
+<div class='page'  id="listen">
+    <!-- Der skal være et klaver her også, og der skal være en teksboks hvor man kan gætte -->
+    <div class="piano">
+
+    </div>
+    <div class="songuessstuff">
+        <input type="text" id="songGuess">
+        <button id="songGuessButton">Send</button>
+    </div>
+</div>
+
+    <script src="index.js"></script>
+</body>
+</html>

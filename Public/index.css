@@ -1,0 +1,55 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Roboto';
+}
+
+.page{
+    width:100vw;
+    height: 100vh;
+    padding:1rem;
+    overflow:hidden;
+    background:white;
+    position:fixed;
+    left:-100vw;
+    transition: ease-in-out .5s;
+    display:grid;
+    place-items: center;
+    padding-bottom: 40vh;
+
+}
+
+.show{
+    left:0;
+}
+#play{
+    display: grid;
+    place-items: center;
+    color:black;
+}
+.info{
+    border: solid 1px black;
+}
+
+.piano{
+    display: grid;
+    grid-template-columns: repeat(24,1fr);
+    height: 20vh;
+    width: 80vw;
+    border-bottom: black solid;
+}
+
+.whitekey{
+    background-color: white;
+    border:1px solid black;
+    height: 100%;
+    width: 2rem;
+}
+
+.blackkey{
+    background-color: black;
+    height: 80%;
+    width: 1.5rem;
+}
+
