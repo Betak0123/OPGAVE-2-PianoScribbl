@@ -10,14 +10,17 @@
     height: 100vh;
     padding:1rem;
     overflow:hidden;
-    background:white;
+    /* background:white; */
     position:fixed;
     left:-100vw;
     transition: ease-in-out .5s;
     display:grid;
     place-items: center;
     padding-bottom: 40vh;
-
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(193,193,193,1) 0%, rgba(111,111,111,1) 100%);
+    /* background-image: url('./assets/piano2.jpg');
+    background-size: contain; */
+    color: white;
 }
 
 .show{
@@ -35,21 +38,109 @@
 .piano{
     display: grid;
     grid-template-columns: repeat(24,1fr);
-    height: 20vh;
+    height: 23vw;
     width: 80vw;
-    border-bottom: black solid;
+    border-bottom: black solid;;
+    background-color: white;
+    border: black 3px solid;
 }
 
 .whitekey{
     background-color: white;
     border:1px solid black;
     height: 100%;
-    width: 2rem;
+    width: 100%;
+    transition: all .2s ease-in-out;
 }
 
 .blackkey{
     background-color: black;
     height: 80%;
-    width: 1.5rem;
+    width: 100%;
+    transition: all .2s ease-in-out;
 }
 
+.playing{
+    background-color: violet;
+}
+
+#name, #lobby{
+    grid-template-rows: 1fr 1fr;
+    place-items:center;
+}
+#reject, #play{
+    grid-template-rows: 1fr 1fr 1fr;
+    place-items:center;
+    padding-bottom: 70%;
+}
+
+#choice, #result {
+    place-items:center;
+}
+
+.picture{
+    display:grid;
+    font-size: 4rem;
+}
+
+#name .input{
+    align-self:flex-start;
+    display:grid;
+    gap:.5rem;
+}
+
+button{
+    background-color: violet;
+    border:none;
+    color: white;
+    padding:.3rem;
+    border-radius:.3rem;
+    margin: 0 1rem 0 1rem;
+    cursor:pointer;
+}
+
+input{
+    border:1px solid violet;
+    padding:.3rem;
+}
+
+
+
+
+
+
+
+
+
+
+/* Styles til loading bar jeg ik selv kan forklare */
+.lds-circle {
+    display: inline-block;
+    transform: translateZ(1px);
+    align-self:flex-start;
+
+  }
+  .lds-circle > div {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    background: violet;
+    animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+  @keyframes lds-circle {
+    0%, 100% {
+      animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+    }
+    0% {
+      transform: rotateY(0deg);
+    }
+    50% {
+      transform: rotateY(1800deg);
+      animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+    }
+    100% {
+      transform: rotateY(3600deg);
+    }
+  }

@@ -6,69 +6,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.2/socket.io.min.js" integrity="sha512-xzC4RSo+4m1clLhr0pQr6yFjO9bJ0py6+l65SBibI8/pSEU8U4iVZ7xm95WRq8PXw2MKv8SSR3QkqR2jciG5Ug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js" integrity="sha512-N4kV7GkNv7QR7RX9YF/olywyIgIwNvfEe2nZtfyj73HdjCUkAfOBDbcuJ/cTaN04JKRnw1YG1wnUyNKMsNgg3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="./libraries/p5.sound.js"></script>
+    <script src="https://unpkg.com/@free-side/audioworklet-polyfill/dist/audioworklet-polyfill.js" type="text/javascript"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.min.js" integrity="sha512-WJXVjqeINVpi5XXJ2jn0BSCfp0y80IKrYh731gLRnkAS9TKc5KNt/OfLtu+fCueqdWniouJ1ubM+VI/hbo7POQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/addons/p5.sound.min.js" integrity="sha512-WzkwpdWEMAY/W8WvP9KS2/VI6zkgejR4/KTxTl4qHx0utqeyVE0JY+S1DlMuxDChC7x0oXtk/ESji6a0lP/Tdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>MLDI Songuesser</title>
 </head>
 <body>    
 
 <main>
-<audio id="audio" src="./assets/24-piano-keys/1A.mp3"></audio>
 
-    <!-- Lobby -->
-    <div class='page' id="lobby">
+    <div class="page " id="name">
+        <div class="title">Indtast dit navn</div>
+        <div class="input">
+            <input type="text" id="nameInput" placeholder="Aa">
+            <button id="nameButton">OK</button>
+        </div>
+    </div>    
 
+    <div class="page " id="reject">
+        <div class="title">Desværre smukke, der var ikke plads</div>
+        <div class="picture">😢</div>
+        <button id="rejectButton">Klik her for at prøve igen</button>
     </div>
 
-    <!-- Namepage -->
-    <div class='page' id="namepage">
-        <button id="navnSenderKnap">OK</button>
-    <!-- Her skal der være namebox og send knap -->
-    </div>
-
-    <!-- disconnectpage -->
-    <div class='page'  id="disconnect">
-    <!-- Bare lidt tekst der siger at du ikke er kommet ind -->
-        <div class="info">Sorry this lobby is full, you'll have to try again later</div>
+    <div class="page " id="lobby">
+        <div class="title" id="lobbyText">Venter på spillere</div>
+        <div class="lds-circle"><div></div></div>
     </div>
 
     <!-- playpage til klienten der skal spille klaver -->
     <div class='page'  id="playPage">
-        <div class="info">Play song for other players to guess</div>
+        <div class="info">Play song for other players to guess <span id='myName'></span></div>
+        <div class="info" id="song">Play: Megalovenia</div>
+        
         <div class="piano">
-            <div class="key whitekey" id="1F"></div>
-            <div class="key blackkey" id="1Fsharp"></div>
-            <div class="key whitekey" id="1G"></div>
-            <div class="key blackkey" id="1Gsharp"></div>
-            <div class="key whitekey" id="1A"></div>
-            <div class="key blackkey" id="1Asharp"></div>
-            <div class="key whitekey" id="1H"></div>
-            <div class="key whitekey" id="1C"></div>
-            <div class="key blackkey" id="1Csharp"></div>
-            <div class="key whitekey" id="1D"></div>
-            <div class="key blackkey" id="1Dsharp"></div>
-            <div class="key whitekey" id="1E"></div>
-            <div class="key whitekey" id="2F"></div>
-            <div class="key blackkey" id="2Fsharp"></div>
-            <div class="key whitekey" id="2G"></div>
-            <div class="key blackkey" id="2Gsharp"></div>
-            <div class="key whitekey" id="2A"></div>
-            <div class="key blackkey" id="2Asharp"></div>
-            <div class="key whitekey" id="2H"></div>
-            <div class="key whitekey" id="2C"></div>
-            <div class="key blackkey" id="2Csharp"></div>
-            <div class="key whitekey" id="2D"></div>
-            <div class="key blackkey" id="2Dsharp"></div>
-            <div class="key whitekey" id="2E"></div>
+            <div class="key whitekey" id="F3"></div>
+            <div class="key blackkey" id="FZ3"></div>
+            <div class="key whitekey" id="G3"></div>
+            <div class="key blackkey" id="GZ3"></div>
+            <div class="key whitekey" id="A4"></div>
+            <div class="key blackkey" id="AZ4"></div>
+            <div class="key whitekey" id="B4"></div>
+            <div class="key whitekey" id="C4"></div>
+            <div class="key blackkey" id="CZ4"></div>
+            <div class="key whitekey" id="D4"></div>
+            <div class="key blackkey" id="DZ4"></div>
+            <div class="key whitekey" id="E4"></div>
+            <div class="key whitekey" id="F4"></div>
+            <div class="key blackkey" id="FZ4"></div>
+            <div class="key whitekey" id="G4"></div>
+            <div class="key blackkey" id="GZ4"></div>
+            <div class="key whitekey" id="A5"></div>
+            <div class="key blackkey" id="AZ5"></div>
+            <div class="key whitekey" id="B5"></div>
+            <div class="key whitekey" id="C5"></div>
+            <div class="key blackkey" id="CZ5"></div>
+            <div class="key whitekey" id="D5"></div>
+            <div class="key blackkey" id="DZ5"></div>
+            <div class="key whitekey" id="E5"></div>
         </div>
     </div>
 </main>
 
 <!-- Listenppage -->
-<div class='page'  id="listen">
+<div class='page'  id="listenPage">
     <!-- Der skal være et klaver her også, og der skal være en teksboks hvor man kan gætte -->
+    <div class="info">Try to guess the song being played  <span id='myName'></span></div>
     <div class="piano">
-
+        <div class="whitekey" id="EF3"></div>
+        <div class="blackkey" id="EFZ3"></div>
+        <div class="whitekey" id="EG3"></div>
+        <div class="blackkey" id="EGZ3"></div>
+        <div class="whitekey" id="EA4"></div>
+        <div class="blackkey" id="EAZ4"></div>
+        <div class="whitekey" id="EB4"></div>
+        <div class="whitekey" id="EC4"></div>
+        <div class="blackkey" id="ECZ4"></div>
+        <div class="whitekey" id="ED4"></div>
+        <div class="blackkey" id="EDZ4"></div>
+        <div class="whitekey" id="EE4"></div>
+        <div class="whitekey" id="EF4"></div>
+        <div class="blackkey" id="EFZ4"></div>
+        <div class="whitekey" id="EG4"></div>
+        <div class="blackkey" id="EGZ4"></div>
+        <div class="whitekey" id="EA5"></div>
+        <div class="blackkey" id="EAZ5"></div>
+        <div class="whitekey" id="EB5"></div>
+        <div class="whitekey" id="EC5"></div>
+        <div class="blackkey" id="ECZ5"></div>
+        <div class="whitekey" id="ED5"></div>
+        <div class="blackkey" id="EDZ5"></div>
+        <div class="whitekey" id="EE5"></div>
     </div>
     <div class="songuessstuff">
         <input type="text" id="songGuess">

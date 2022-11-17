@@ -11,7 +11,8 @@ playercount = 0
 x = 2
 
 players = []
-
+names = []
+Navne = 0
 
 app.use('/', express.static('public'))
 
@@ -44,25 +45,41 @@ serverSocket.on('connection', socket => {
     
     // Lyt efter om klienterne sender navne 
     socket.on('name', name =>{
+        if(Navne >= 2){
+            Navne = 0
+            names = []
+        }
+        names.push({ 'id':socket.id})
+        names.name = name
         // Gem navnet i playerarray med deres socket.id
         // tjek om alle spillere har givet deres navn
-        if(players.length > x){
-            // vælg tilfældigt en spiller der starter 
+        // let thisPlayer = players.find( p => p.id == socket.id )
+        // //indsæt navnet i objektet i players array 
+        // thisPlayer.name = name
+        //registrer at vi har modtaget et navn til - læg 1 til navnetæller
+        Navne ++
+        console.log('Fik navn: ' + name, ' Vi har nu ' + Navne + ' navn(e)')   
+
+        if(Navne > 1){
+            // vælg tilfældigt en spiller der starter
             // Send besked til spiller der starter om at vise tegnepage
+            console.log('der er mere end to spillere og spiller 1 har id:'+names[0].id)
+            serverSocket.to(names[0].id).emit('start','#playPage')
             // Send besked til alle de andre om at de skal have lyttepage
-            // .emit('start','play')
-            // .emit('start', 'listen')
-            // serverSocket.to(socket.id).emit('start')
+            serverSocket.to(names[1].id).emit('start','#listenPage')
+            // Giv dem der spiller en sang at spille
+            serverSocket.to(names[0]).emit('playsong','Megalovania')
         }
     })
     
     // Lyt efter når klienten der spiller klaver trykker på en knap
-    socket.on('piano',key =>{
+    socket.on('piano', key =>{
         console.log('got key ' + key)
         //Send hvilken tangent der er spillet til alle de andre klienter. 
         socket.broadcast.emit('playedKey', key)
     })
     
+
     // Lyt efter at klienterne gætter på en sang
     socket.on('guess',guess =>{
         // Tjek om deres gæt er rigtigt
